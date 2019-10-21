@@ -44,6 +44,10 @@ public class Estabelecimento {
 	@OneToMany
 	private List<Registro> registros;
 	
+	public Estabelecimento() {
+		// TODO Auto-generated constructor stub
+	}
+	
 
 	
 	public Integer getId() {

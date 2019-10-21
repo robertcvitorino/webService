@@ -1,6 +1,7 @@
 package com.poupe.apipoupepila.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="CLIENTE")
@@ -48,17 +51,38 @@ public class Cliente implements Serializable {
 	private Boolean premium;
 	
 	
-	//Relacionamento Tabela Registro 
+	//Relacionamento Tabela Registro
+	@JsonBackReference
 	@OneToMany(mappedBy="cliente")
-	private List<Registro> registros;
+	private List<Registro> registros= new ArrayList<>();
 	
 	// Relacionamento Tabela lista do cliente 
 	@OneToMany
-	private List<Lista> listas;
+	private List<Lista> listas= new ArrayList<>();
 
 
 	
 	// Getter e Setter da Classe 
+	
+	public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public List<Registro> getRegistros() {
+		return registros;
+	}
+
+	public void setRegistros(List<Registro> registros) {
+		this.registros = registros;
+	}
+
+	public List<Lista> getListas() {
+		return listas;
+	}
+
+	public void setListas(List<Lista> listas) {
+		this.listas = listas;
+	}
 
 	public Integer getId() {
 		return id;

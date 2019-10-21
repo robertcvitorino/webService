@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="REGISTRO")
 public class Registro {
@@ -44,11 +46,61 @@ public class Registro {
 
 	
 	//Relaciomanto Tabela cliente 
-	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	public RegistroPendente getRegistroPendente() {
+		return registroPendente;
+	}
+
+
+	public void setRegistroPendente(RegistroPendente registroPendente) {
+		this.registroPendente = registroPendente;
+	}
+
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+
+	public Estabelecimento getEstabelecimento() {
+		return estabelecimento;
+	}
+
+
+	public void setEstabelecimento(Estabelecimento estabelecimento) {
+		this.estabelecimento = estabelecimento;
+	}
+
+
+	public Base getBase() {
+		return base;
+	}
+
+
+	public void setBase(Base base) {
+		this.base = base;
+	}
+
+
 	// Relacionamento Tabela Registo pendente 
 	@OneToOne(mappedBy="registro")
 	private RegistroPendente registroPendente;
@@ -72,6 +124,22 @@ public class Registro {
 	
 	
 	//Getter e Setter da Classe
+	
+	public Registro() {
+		// TODO Auto-generated constructor stub
+	}
+	
+
+	public Registro(Integer id, Date dataInsercao, String novoEstabelecimento, BigDecimal precoDigitado,
+			Boolean precoVerificado) {
+		super();
+		this.id = id;
+		this.dataInsercao = dataInsercao;
+		this.novoEstabelecimento = novoEstabelecimento;
+		this.precoDigitado = precoDigitado;
+		this.precoVerificado = precoVerificado;
+	}
+
 
 	public Integer getId() {
 		return id;

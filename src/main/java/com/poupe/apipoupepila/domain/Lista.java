@@ -30,6 +30,10 @@ public class Lista {
     
     //Getter e Setter da Classe 
     
+    public Lista() {
+		// TODO Auto-generated constructor stub
+	}
+    
 	public Integer getId() {
 		return id;
 	}
