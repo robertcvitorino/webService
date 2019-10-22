@@ -8,4 +8,6 @@ import com.poupe.apipoupepila.domain.Estabelecimento;
 @Repository
 public interface EstabelecimentoRepository extends JpaRepository<Estabelecimento, Integer> {
 
+	
+	Estabelecimento findByNome(String nome);
 }

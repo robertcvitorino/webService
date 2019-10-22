@@ -9,5 +9,5 @@ import com.poupe.apipoupepila.domain.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente,Integer> {
 
-  
+	Cliente  findByNome(String nome);
 }

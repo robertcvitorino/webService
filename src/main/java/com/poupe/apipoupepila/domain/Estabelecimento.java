@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name="ESTABELECIMENTO")
@@ -41,6 +43,7 @@ public class Estabelecimento {
 	
 	
 	//Relacionamento Tabela Registro 
+	@JsonBackReference
 	@OneToMany
 	private List<Registro> registros;
 	

@@ -30,7 +30,7 @@ public class RegistroPendente {
 	
 	@OneToOne
 	@JoinColumn(name="registro_Id")
-	private Registro registro;	
+	private Registro registros;	
 	
 	
 

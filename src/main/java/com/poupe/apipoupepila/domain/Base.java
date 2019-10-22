@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="BASE")
 public class Base {
@@ -19,7 +21,7 @@ public class Base {
 	//Chave primaria 
 	private Integer id;	
 
-	
+	@JsonBackReference
 	@OneToMany
 	private List<Registro> registros;
 	

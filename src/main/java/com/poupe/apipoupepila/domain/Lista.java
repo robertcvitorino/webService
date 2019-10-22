@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 @Entity
@@ -18,14 +20,16 @@ public class Lista {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)	
 	//Chave primaria 
-	private Integer id;	
-	
-  
+	private Integer id;	  
 
     //Relacionamento Tabela Cliente
+	@JsonManagedReference
     @ManyToOne
     @JoinColumn(name ="cliente_id")
     private Cliente cliente;
+    
+    
+    
    
     
     //Getter e Setter da Classe 

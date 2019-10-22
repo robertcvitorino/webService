@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+
+
 @Entity
 @Table(name="CLIENTE")
 public class Cliente implements Serializable {
@@ -51,15 +53,22 @@ public class Cliente implements Serializable {
 	private Boolean premium;
 	
 	
+	/*
 	//Relacionamento Tabela Registro
 	@JsonBackReference
-	@OneToMany(mappedBy="cliente")
-	private List<Registro> registros= new ArrayList<>();
-	
+	@ManyToOne
+	@JoinColumn(name = "registro_id")
+	private Registro registro;
+	*/
 	// Relacionamento Tabela lista do cliente 
+	@JsonBackReference
 	@OneToMany
 	private List<Lista> listas= new ArrayList<>();
 
+	
+	@JsonBackReference
+	@OneToMany(mappedBy = "clientes")
+	private List<Registro> registros = new ArrayList<>();
 
 	
 	// Getter e Setter da Classe 
@@ -68,21 +77,7 @@ public class Cliente implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Registro> getRegistros() {
-		return registros;
-	}
-
-	public void setRegistros(List<Registro> registros) {
-		this.registros = registros;
-	}
-
-	public List<Lista> getListas() {
-		return listas;
-	}
-
-	public void setListas(List<Lista> listas) {
-		this.listas = listas;
-	}
+	
 
 	public Integer getId() {
 		return id;

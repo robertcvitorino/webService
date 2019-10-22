@@ -1,7 +1,9 @@
 package com.poupe.apipoupepila.domain;
 
 import java.math.BigDecimal;
+
 import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -26,100 +29,50 @@ public class Registro {
 	//Chave primaria 
 	private Integer id;	
 	
+	@JsonFormat(pattern = "dd/mm/yyyy HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="REGISTRO_DATA_HORA",nullable=true)
-	private Date dataInsercao;
-	
-	
+	private Date dataInsercao;	
 	
 	@Column(name="REGISTRO_NOVO_ESTABELECIMENTO",nullable=true)
-	private String novoEstabelecimento;
-	
-	
+	private String novoEstabelecimento;	
 	
 	@Column(name="REGISTRO_PRECO_DIGITADO",nullable=true,precision=2)
 	private BigDecimal precoDigitado;
 	
-	
 	@Column(name="REGISTRO_PRECO_VERFIFICADO",nullable=true)
 	private Boolean precoVerificado;
-
 	
-	//Relaciomanto Tabela cliente 
-	@JsonManagedReference
-	@ManyToOne
-	@JoinColumn(name="cliente_id")
-	private Cliente cliente;
 	
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-
-	public RegistroPendente getRegistroPendente() {
-		return registroPendente;
-	}
-
-
-	public void setRegistroPendente(RegistroPendente registroPendente) {
-		this.registroPendente = registroPendente;
-	}
-
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-
-	public Estabelecimento getEstabelecimento() {
-		return estabelecimento;
-	}
-
-
-	public void setEstabelecimento(Estabelecimento estabelecimento) {
-		this.estabelecimento = estabelecimento;
-	}
-
-
-	public Base getBase() {
-		return base;
-	}
-
-
-	public void setBase(Base base) {
-		this.base = base;
-	}
-
 
 	// Relacionamento Tabela Registo pendente 
-	@OneToOne(mappedBy="registro")
+	@OneToOne(mappedBy="registros")
 	private RegistroPendente registroPendente;
 	
-	//Tronar ean Primary Key 
+	//Tronar ean Primary Key 	
+	@JsonManagedReference
 	@ManyToOne
-	@JoinColumn(name="produto_id")
+	@JoinColumn(name="produto_ean")
 	private Produto produto;
-	
+
 	//Relacionamento Tabela Estabelecimento 
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="estabelecimento_id")
 	private Estabelecimento estabelecimento;
 	
-	//Relacionamento Tabela Base 
+	//Relacionamento Tabela Base
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="base_id")
 	private Base base;
 	
+
+	//Relaciomanto Tabela cliente 
+		@JsonManagedReference
+		@ManyToOne
+		@JoinColumn(name = "clientes_id")
+		private Cliente clientes;		
 	
 	
 	
@@ -130,15 +83,24 @@ public class Registro {
 	}
 	
 
+
 	public Registro(Integer id, Date dataInsercao, String novoEstabelecimento, BigDecimal precoDigitado,
-			Boolean precoVerificado) {
+			Boolean precoVerificado, RegistroPendente registroPendente, Produto produto,
+			Estabelecimento estabelecimento, Base base, Cliente clientes) {
 		super();
 		this.id = id;
 		this.dataInsercao = dataInsercao;
 		this.novoEstabelecimento = novoEstabelecimento;
 		this.precoDigitado = precoDigitado;
 		this.precoVerificado = precoVerificado;
+		this.registroPendente = registroPendente;
+		this.produto = produto;
+		this.estabelecimento = estabelecimento;
+		this.base = base;
+		this.clientes = clientes;
 	}
+
+
 
 
 	public Integer getId() {
@@ -189,6 +151,58 @@ public class Registro {
 	public void setPrecoVerificado(Boolean precoVerificado) {
 		this.precoVerificado = precoVerificado;
 	}
-	
+
+
+
+
+	public Cliente getClientes() {
+		return clientes;
+	}
+
+
+	public void setClientes(Cliente clientes) {
+		this.clientes = clientes;
+	}
+
+	public RegistroPendente getRegistroPendente() {
+		return registroPendente;
+	}
+
+
+	public void setRegistroPendente(RegistroPendente registroPendente) {
+		this.registroPendente = registroPendente;
+	}	
+
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+
+
+	public Estabelecimento getEstabelecimento() {
+		return estabelecimento;
+	}
+
+
+	public void setEstabelecimento(Estabelecimento estabelecimento) {
+		this.estabelecimento = estabelecimento;
+	}
+
+
+	public Base getBase() {
+		return base;
+	}
+
+
+	public void setBase(Base base) {
+		this.base = base;
+	}
 	
 }
