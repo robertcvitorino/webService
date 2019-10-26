@@ -32,6 +32,7 @@ public class EstabelecimentoResource {
 		Estabelecimento estabelecimentoObj= estabelecimentoService.buscarIdEstab(id);			
 		return ResponseEntity.ok().body(estabelecimentoObj);
 	}
+	
 	//Pesquisa de todos od  supermercado
 	@GetMapping(path = "/estabelecimentos")	
 	public ResponseEntity<List<EstabelecimentoDTO>> findAll() {
@@ -56,6 +57,20 @@ public class EstabelecimentoResource {
 		
 		URI uri =ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(estabelecimento.getId()).toUri();
+		return ResponseEntity.created(uri).build();		
+		
+	}
+	
+	@PostMapping(path = "/cadastro/estabelecimento")
+	public ResponseEntity<Void> CadastraEstabelecimentoCliente(@RequestBody EstabelecimentoDTO estabelecimentoObj){
+		
+		Estabelecimento estabelecimento= estabelecimentoService.fromDTO(estabelecimentoObj);
+		
+		estabelecimento= estabelecimentoService.inserirEstab(estabelecimento);
+		
+		URI uri =ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(estabelecimento.getId()).toUri();
+		
 		return ResponseEntity.created(uri).build();
 		
 		

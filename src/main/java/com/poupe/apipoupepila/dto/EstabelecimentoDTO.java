@@ -15,11 +15,13 @@ public class EstabelecimentoDTO implements Serializable {
 	private String telefone;	
 	private String bairro;	
 	private String cidade;	
-	private String uf;
+	private String uf;	
+	private Integer registroID;
 	
 	public EstabelecimentoDTO() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	public EstabelecimentoDTO(Estabelecimento estabelecimento) {
 		
 		id=estabelecimento.getId();
@@ -32,6 +34,20 @@ public class EstabelecimentoDTO implements Serializable {
 		
 	}
 	
+	
+	public Integer getRegistroID() {
+		return registroID;
+	}
+	public void setRegistroID(Integer registroID) {
+		this.registroID = registroID;
+	}
+	/*
+	public Integer getClienteID() {
+		return clienteID;
+	}
+	public void setClienteID(Integer clienteID) {
+		this.clienteID = clienteID;
+	}*/
 	public Integer getId() {
 		return id;
 	}

@@ -1,77 +1,88 @@
-package com.poupe.apipoupepila.domain;
-
-
+package com.poupe.apipoupepila.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.poupe.apipoupepila.domain.Base;
 
-
-@Entity
-@Table(name="BASE")
-public class Base implements Serializable {
-
+public class BaseDTO implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)	
-	//Chave primaria 
+	
 	private Integer id;	
 	private String ean;
 	private String nome;
 	private Double precoOficial;
 	
-	public Base() {
+	//private Integer registoID;
+	
+	
+	public BaseDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	/*
-	@OneToOne
-	private Registro registros;
-	*/
+
+	public BaseDTO(Base baseObj) {
+		id=baseObj.getId();
+		ean =baseObj.getEan();
+		nome=baseObj.getNome();
+		precoOficial=baseObj.getPrecoOficial();
+				
+	}
+	
+	
+	
+	
+
 	public Integer getId() {
 		return id;
 	}
+
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+
 	public String getEan() {
 		return ean;
 	}
+
 
 	public void setEan(String ean) {
 		this.ean = ean;
 	}
 
+
 	public String getNome() {
 		return nome;
 	}
+
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
+
 	public Double getPrecoOficial() {
 		return precoOficial;
 	}
 
+
 	public void setPrecoOficial(Double precoOficial) {
 		this.precoOficial = precoOficial;
 	}
+
 	/*
-	public Registro getRegistros() {
-		return registros;
+	public Integer getRegistoID() {
+		return registoID;
 	}
 
-	public void setRegistros(Registro registros) {
-		this.registros = registros;
+
+	public void setRegistoID(Integer registoID) {
+		this.registoID = registoID;
 	}
 	*/
-
 	
-
+	
+	
+	
 }

@@ -53,11 +53,11 @@ public class Estabelecimento implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "estabelecimento",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Registro> registros= new ArrayList<>();
-	
+	/*
 	@JsonIgnore
 	@OneToMany(mappedBy = "estabelecimento",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Cliente> clientes= new ArrayList<>();
-	
+	*/
 	public Estabelecimento() {
 		// TODO Auto-generated constructor stub
 	}
@@ -67,7 +67,7 @@ public class Estabelecimento implements Serializable {
 
 	
 	public Estabelecimento(Integer id, String nome, String telefone, String bairro, String cidade, String uf,
-			List<Registro> registros, List<Cliente> clientes) {
+			List<Registro> registros) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -76,10 +76,8 @@ public class Estabelecimento implements Serializable {
 		this.cidade = cidade;
 		this.uf = uf;
 		this.registros = registros;
-		this.clientes = clientes;
+		
 	}
-
-
 
 
 
@@ -96,7 +94,7 @@ public class Estabelecimento implements Serializable {
 	}
 
 
-
+/*
 
 
 	public List<Cliente> getClientes() {
@@ -110,7 +108,7 @@ public class Estabelecimento implements Serializable {
 	public void setClientes(List<Cliente> clientes) {
 		this.clientes = clientes;
 	}
-
+*/
 
 
 

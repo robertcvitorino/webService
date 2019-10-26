@@ -32,7 +32,7 @@ public class ClienteService {
 		return cliente.orElse(null);
 		
 	}
-	//Função que busca supermercado por Nome
+	//Função que busca cliente por Nome
 	public Cliente buscarPorNome(String nome) {
 		Cliente clienteObj = clienteRepository.findByNome(nome);
 		return clienteObj;

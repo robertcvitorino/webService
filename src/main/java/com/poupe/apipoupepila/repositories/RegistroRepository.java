@@ -8,4 +8,7 @@ import com.poupe.apipoupepila.domain.Registro;
 @Repository
 public interface RegistroRepository extends JpaRepository<Registro, Integer> {
 
+	
+
+
 }

@@ -40,7 +40,7 @@ public class Registro implements Serializable{
 	private Double precoDigitado;
 	
 	@Column(name="REGISTRO_PRECO_VERFIFICADO")
-	private Boolean precoVerificado;
+	private Boolean precoVerificado ;
 	
 	
 
@@ -86,7 +86,7 @@ public class Registro implements Serializable{
 
 	public Registro(Integer id, Date dataInsercao, String novoEstabelecimento, Double precoDigitado,
 			Boolean precoVerificado, Produto produto,Estabelecimento estabelecimento, 
-			 Cliente cliente) {
+			 Cliente cliente,Base base) {
 		super();
 		this.id = id;
 		this.dataInsercao = dataInsercao;
@@ -96,6 +96,7 @@ public class Registro implements Serializable{
 		this.produto = produto;
 		this.estabelecimento = estabelecimento;		
 		this.cliente = cliente;
+		this.base=base;
 	}
 
 
@@ -198,6 +199,15 @@ public class Registro implements Serializable{
 		return base;
 	}
 
+	public boolean getprecoDigitado() {
+		if(precoDigitado<=(precoDigitado*1.30)) {
+			precoVerificado=true;
+		}else {
+			precoVerificado=false;
+		}
+		
+		return precoVerificado;
+	}
 
 	public void setBase(Base base) {
 		this.base = base;

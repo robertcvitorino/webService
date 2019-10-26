@@ -20,9 +20,11 @@ public class RegistroDTO implements Serializable {
 	
 	private Boolean precoVerificado;
 	
+	
 	private Integer clienteID;
 	private Integer estabelecimentoID;	
 	private Integer produtoID;
+	private Integer baseID;
 	
 	
 	public RegistroDTO() {
@@ -31,6 +33,18 @@ public class RegistroDTO implements Serializable {
 	
 	
 	
+	public Integer getBaseID() {
+		return baseID;
+	}
+
+
+
+	public void setBaseID(Integer baseID) {
+		this.baseID = baseID;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}

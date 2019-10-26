@@ -32,6 +32,8 @@ public class RegistroResource {
 		return ResponseEntity.ok().body(registroObj);
 		}	
 	
+	
+	
 	@PostMapping(path = "/registro")
 	public ResponseEntity<Void> CadastraProduto(@RequestBody RegistroDTO registroObj){
 		
