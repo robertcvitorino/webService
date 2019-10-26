@@ -1,6 +1,8 @@
 package com.poupe.apipoupepila.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.poupe.apipoupepila.domain.Estabelecimento;
+import com.poupe.apipoupepila.dto.EstabelecimentoDTO;
 import com.poupe.apipoupepila.services.EstabelecimentoService;
 
 @RestController
@@ -26,11 +29,19 @@ public class EstabelecimentoResource {
 	//Pesquisa de supermercado por ID
 	@GetMapping(path =  "/estabelecimento/{id}")
 	public ResponseEntity<?> buscarIdEstab(@PathVariable Integer id) {
-		Estabelecimento estabelecimentoObj= estabelecimentoService.buscarIdEstab(id);
-		
-			
+		Estabelecimento estabelecimentoObj= estabelecimentoService.buscarIdEstab(id);			
 		return ResponseEntity.ok().body(estabelecimentoObj);
 	}
+	//Pesquisa de todos od  supermercado
+	@GetMapping(path = "/estabelecimentos")	
+	public ResponseEntity<List<EstabelecimentoDTO>> findAll() {
+		List<Estabelecimento> list = estabelecimentoService.findAll();
+		List<EstabelecimentoDTO> listDto = list.stream().map(obj -> new EstabelecimentoDTO(obj)).collect(Collectors.toList());  
+		return ResponseEntity.ok().body(listDto);
+	}
+	
+	
+	
 	//Pesquisa de supermercado por Nome
 	@GetMapping(path = "/estabelecimentoN/{nome}")
 	public ResponseEntity<?> buscarEstabNome(@PathVariable String nome){

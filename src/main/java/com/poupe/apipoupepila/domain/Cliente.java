@@ -4,15 +4,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 
 
@@ -20,9 +26,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name="CLIENTE")
 public class Cliente implements Serializable {
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -30,26 +34,26 @@ public class Cliente implements Serializable {
 	//Chave primaria 
 	private Integer id;		
 	// tamanho 50 , nome do campo no SGBD, Não pode ser nulo 
-	@Column(length=50,name="CLIENTE_NOME",nullable=true)
+	@Column(length=50,name="CLIENTE_NOME")
 	private String nome;	
 	
-	@Column(length=12,name="CLIENTE_SENHA",nullable=true)
+	@Column(length=12,name="CLIENTE_SENHA")
 	private String senha;
 	
 	@Column(length=11,name="CLIENTE_TELEFONE")
 	private String telefone;	
 	
-	@Column(length=50,name="CLIENTE_BAIRRO",nullable=true)
+	@Column(length=50,name="CLIENTE_BAIRRO")
 	private String bairro;
 	
-	@Column(length=50,name="CLIENTE_CIDADE",nullable=true)
+	@Column(length=50,name="CLIENTE_CIDADE")
 	private String cidade;
 	
-	@Column(length=2,name="CLIENTE_UF",nullable=true)
+	@Column(length=2,name="CLIENTE_UF")
 	private String uf;
 	
 	
-	@Column(name="CLIENTE_PREMIUM",nullable=true)
+	@Column(name="CLIENTE_PREMIUM")
 	private Boolean premium;
 	
 	
@@ -61,14 +65,19 @@ public class Cliente implements Serializable {
 	private Registro registro;
 	*/
 	// Relacionamento Tabela lista do cliente 
-	@JsonBackReference
-	@OneToMany
-	private List<Lista> listas= new ArrayList<>();
-
 	
-	@JsonBackReference
-	@OneToMany(mappedBy = "clientes")
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<Lista> listas= new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Registro> registros = new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name="estabelecimento_id")
+	Estabelecimento estabelecimento;
+	
 
 	
 	// Getter e Setter da Classe 
@@ -76,8 +85,66 @@ public class Cliente implements Serializable {
 	public Cliente() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 	
+
+	public Cliente(Integer id, String nome, String senha, String telefone, String bairro, String cidade, String uf,
+			Boolean premium, List<Lista> listas, List<Registro> registros, Estabelecimento estabelecimento) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.senha = senha;
+		this.telefone = telefone;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.uf = uf;
+		this.premium = premium;
+		this.listas = listas;
+		this.registros = registros;
+		this.estabelecimento = estabelecimento;
+	}
+
+
+
+
+
+	public List<Lista> getListas() {
+		return listas;
+	}
+
+
+
+	public void setListas(List<Lista> listas) {
+		this.listas = listas;
+	}
+
+
+
+	public List<Registro> getRegistros() {
+		return registros;
+	}
+
+
+
+	public void setRegistros(List<Registro> registros) {
+		this.registros = registros;
+	}
+
+
+
+	public Estabelecimento getEstabelecimento() {
+		return estabelecimento;
+	}
+
+
+
+	public void setEstabelecimento(Estabelecimento estabelecimento) {
+		this.estabelecimento = estabelecimento;
+	}
+
+
 
 	public Integer getId() {
 		return id;

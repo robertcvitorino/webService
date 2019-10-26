@@ -1,9 +1,7 @@
 package com.poupe.apipoupepila.domain;
 
-import java.math.BigDecimal;
-
+import java.io.Serializable;
 import java.util.Date;
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,30 +15,31 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Table(name="REGISTRO")
-public class Registro {
+public class Registro implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)	
 	//Chave primaria 
 	private Integer id;	
 	
-	@JsonFormat(pattern = "dd/mm/yyyy HH:mm")
+	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="REGISTRO_DATA_HORA",nullable=true)
+	@Column(name="REGISTRO_DATA_HORA")
 	private Date dataInsercao;	
 	
-	@Column(name="REGISTRO_NOVO_ESTABELECIMENTO",nullable=true)
+	@Column(name="REGISTRO_NOVO_ESTABELECIMENTO")
 	private String novoEstabelecimento;	
 	
-	@Column(name="REGISTRO_PRECO_DIGITADO",nullable=true,precision=2)
-	private BigDecimal precoDigitado;
+	@Column(name="REGISTRO_PRECO_DIGITADO")
+	private Double precoDigitado;
 	
-	@Column(name="REGISTRO_PRECO_VERFIFICADO",nullable=true)
+	@Column(name="REGISTRO_PRECO_VERFIFICADO")
 	private Boolean precoVerificado;
 	
 	
@@ -50,29 +49,30 @@ public class Registro {
 	private RegistroPendente registroPendente;
 	
 	//Tronar ean Primary Key 	
-	@JsonManagedReference
+	
+	
 	@ManyToOne
-	@JoinColumn(name="produto_ean")
+	@JoinColumn(name="produto_id")
 	private Produto produto;
 
 	//Relacionamento Tabela Estabelecimento 
-	@JsonManagedReference
+	
 	@ManyToOne
 	@JoinColumn(name="estabelecimento_id")
 	private Estabelecimento estabelecimento;
 	
 	//Relacionamento Tabela Base
-	@JsonManagedReference
-	@ManyToOne
+	
+	@OneToOne
 	@JoinColumn(name="base_id")
 	private Base base;
 	
 
 	//Relaciomanto Tabela cliente 
-		@JsonManagedReference
-		@ManyToOne
-		@JoinColumn(name = "clientes_id")
-		private Cliente clientes;		
+		
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;		
 	
 	
 	
@@ -84,20 +84,18 @@ public class Registro {
 	
 
 
-	public Registro(Integer id, Date dataInsercao, String novoEstabelecimento, BigDecimal precoDigitado,
-			Boolean precoVerificado, RegistroPendente registroPendente, Produto produto,
-			Estabelecimento estabelecimento, Base base, Cliente clientes) {
+	public Registro(Integer id, Date dataInsercao, String novoEstabelecimento, Double precoDigitado,
+			Boolean precoVerificado, Produto produto,Estabelecimento estabelecimento, 
+			 Cliente cliente) {
 		super();
 		this.id = id;
 		this.dataInsercao = dataInsercao;
 		this.novoEstabelecimento = novoEstabelecimento;
 		this.precoDigitado = precoDigitado;
-		this.precoVerificado = precoVerificado;
-		this.registroPendente = registroPendente;
+		this.precoVerificado = precoVerificado;		
 		this.produto = produto;
-		this.estabelecimento = estabelecimento;
-		this.base = base;
-		this.clientes = clientes;
+		this.estabelecimento = estabelecimento;		
+		this.cliente = cliente;
 	}
 
 
@@ -133,12 +131,12 @@ public class Registro {
 	}
 
 
-	public BigDecimal getPrecoDigitado() {
+	public Double getPrecoDigitado() {
 		return precoDigitado;
 	}
 
 
-	public void setPrecoDigitado(BigDecimal precoDigitado) {
+	public void setPrecoDigitado(Double precoDigitado) {
 		this.precoDigitado = precoDigitado;
 	}
 
@@ -155,13 +153,13 @@ public class Registro {
 
 
 
-	public Cliente getClientes() {
-		return clientes;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
 
-	public void setClientes(Cliente clientes) {
-		this.clientes = clientes;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public RegistroPendente getRegistroPendente() {

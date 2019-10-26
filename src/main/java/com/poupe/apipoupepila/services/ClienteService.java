@@ -1,9 +1,11 @@
 package com.poupe.apipoupepila.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.poupe.apipoupepila.domain.Cliente;
 
@@ -17,6 +19,7 @@ public class ClienteService {
 	
 	
 	//Função que cadastra cliente
+	@Transactional
 		public Cliente inserirCliente(Cliente clienteObj) {
 			clienteObj.setId(null);
 			return clienteRepository.save(clienteObj);
@@ -35,7 +38,10 @@ public class ClienteService {
 		return clienteObj;
 			
 	}
-	
+	//Função que busca todos clientes e retorna para o ClienteResource
+	public List<Cliente> findAll(){
+		return clienteRepository.findAll();
+	}
 	
 	
 }

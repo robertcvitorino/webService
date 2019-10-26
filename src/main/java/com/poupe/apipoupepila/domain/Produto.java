@@ -3,11 +3,14 @@ package com.poupe.apipoupepila.domain;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,24 +19,27 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Table(name="PRODUTO")
-public class Produto {	
+public class Produto implements Serializable {
 	
-
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)	
 	//Chave primaria 
 	private Integer id;	
 	
 	// tamanho 50 , nome do campo no SGBD, Não pode ser nulo 
-	@Column(length=100,name="PRODUTO_NOME",nullable=true)
+	@Column(length=100,name="PRODUTO_NOME")
 	private String nome;	
 	
 	@NaturalId
-	@Column(length=13,name="PRODUTO_EAN",nullable=true)
+	@Column(length=13,name="PRODUTO_EAN")
 	private String ean;
 	
 	@Column(length=50,name="PRODUTO_DEPARTAMENTO")
@@ -45,9 +51,9 @@ public class Produto {
 	@JoinColumn(name = "registro_id")
 	private Registro registro;
 	*/
-	@JsonBackReference
-	@OneToMany(mappedBy = "produto")		
-	private List<Registro> registro= new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL,fetch = FetchType.LAZY)		
+	private List<Registro> registro = new ArrayList<>();
 	
 	
 	

@@ -1,6 +1,8 @@
 package com.poupe.apipoupepila.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.poupe.apipoupepila.domain.Cliente;
+import com.poupe.apipoupepila.dto.ClienteDTO;
 import com.poupe.apipoupepila.services.ClienteService;
 
 @RestController
@@ -22,9 +25,19 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService clienteService;
 	
+	
+	//Pesquisa todos os  clientes
+	@GetMapping(path = "/clientes")	
+	public ResponseEntity<List<ClienteDTO>> findAll() {
+		List<Cliente> list = clienteService.findAll();
+		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());  
+		return ResponseEntity.ok().body(listDto);
+	}
+	
+	
 	//Pesquisa de cliente por ID
-	@GetMapping(path =  "cliente/{id}")
-	public ResponseEntity<?> buscarClienteId(@PathVariable Integer id) {		
+		@GetMapping(path =  "cliente/{id}")
+		public ResponseEntity<?> buscarClienteId(@PathVariable Integer id) {		
 		Cliente clineteObj = clienteService.buscarId(id);		
 		return ResponseEntity.ok().body(clineteObj);		
 	}
@@ -36,16 +49,16 @@ public class ClienteResource {
 			Cliente clienteObj= clienteService.buscarPorNome(nome);
 			
 			return ResponseEntity.ok().body(clienteObj);
-		}	
-		//Cadastro de Cliente
+	}	
+		
+	//Cadastro de Cliente
 		@PostMapping(path = "/cliente")
 		public ResponseEntity<Void> CadastraCliente(@RequestBody Cliente cliente){	
 			cliente = clienteService.inserirCliente(cliente);
 			
 			URI uri =ServletUriComponentsBuilder.fromCurrentRequest()
 					.path("/{id}").buildAndExpand(cliente.getId()).toUri();
-			return ResponseEntity.created(uri).build();
-			
+			return ResponseEntity.created(uri).build();			
 			
 		}
 		

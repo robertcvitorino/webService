@@ -1,9 +1,11 @@
 package com.poupe.apipoupepila.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.poupe.apipoupepila.domain.Estabelecimento;
 
@@ -16,6 +18,7 @@ public class EstabelecimentoService {
 	private EstabelecimentoRepository estabelecimentoRepository;
 	
 	//Função que cadastra supermercado 
+	@Transactional
 	public Estabelecimento inserirEstab(Estabelecimento estabelecimentoObj) {
 		estabelecimentoObj.setId(null);
 		return estabelecimentoRepository.save(estabelecimentoObj);
@@ -28,6 +31,12 @@ public class EstabelecimentoService {
 		return estabelecimento.orElse(null);
 		
 	}
+	//Função que busca todos supermercado 
+	public List<Estabelecimento> findAll() {		
+		return estabelecimentoRepository.findAll();
+		
+	}
+	
 	
 	//Função que busca supermercado por Nome
 	public Estabelecimento buscarPorNome(String nome) {

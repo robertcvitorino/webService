@@ -1,24 +1,30 @@
 package com.poupe.apipoupepila.domain;
 
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
 @Table(name="ESTABELECIMENTO")
-public class Estabelecimento {
+public class Estabelecimento implements Serializable {
 	
 	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)	
@@ -26,33 +32,89 @@ public class Estabelecimento {
 	private Integer id;	
 	
 	// tamanho 50 , nome do campo no SGBD, Não pode ser nulo 
-	@Column(length=50,name="ESTABELECIMENTO_NOME",nullable=true)
+	@Column(length=50,name="ESTABELECIMENTO_NOME")
 	private String nome;	
 	
 	@Column(length=11,name="ESTABELECIMENTO_TELEFONE")
 	private String telefone;
 	
-	@Column(length=50,name="ESTABELECIMENTO_BAIRRO",nullable=true)
+	@Column(length=50,name="ESTABELECIMENTO_BAIRRO")
 	private String bairro;
 	
-	@Column(length=50,name="ESTABELECIMENTO_CIDADE",nullable=true)
+	@Column(length=50,name="ESTABELECIMENTO_CIDADE")
 	private String cidade;
 	
-	@Column(length=2,name="ESTABELECIMENTO_UF",nullable=true)
+	@Column(length=2,name="ESTABELECIMENTO_UF")
 	private String uf;
 	
 	
 	//Relacionamento Tabela Registro 
-	@JsonBackReference
-	@OneToMany
-	private List<Registro> registros;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "estabelecimento",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<Registro> registros= new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "estabelecimento",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<Cliente> clientes= new ArrayList<>();
 	
 	public Estabelecimento() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
 
 	
+	public Estabelecimento(Integer id, String nome, String telefone, String bairro, String cidade, String uf,
+			List<Registro> registros, List<Cliente> clientes) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.telefone = telefone;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.uf = uf;
+		this.registros = registros;
+		this.clientes = clientes;
+	}
+
+
+
+
+
+	public List<Registro> getRegistros() {
+		return registros;
+	}
+
+
+
+
+
+	public void setRegistros(List<Registro> registros) {
+		this.registros = registros;
+	}
+
+
+
+
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+
+
+
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+
+
+
+
 	public Integer getId() {
 		return id;
 	}
