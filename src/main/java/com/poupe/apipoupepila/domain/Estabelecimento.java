@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -58,6 +59,12 @@ public class Estabelecimento implements Serializable {
 	@OneToMany(mappedBy = "estabelecimento",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Cliente> clientes= new ArrayList<>();
 	*/
+	@JsonIgnore
+	@OneToOne
+	private Base base;
+	
+	
+	
 	public Estabelecimento() {
 		// TODO Auto-generated constructor stub
 	}
@@ -66,6 +73,22 @@ public class Estabelecimento implements Serializable {
 	
 
 	
+	public Base getBase() {
+		return base;
+	}
+
+
+
+
+
+	public void setBase(Base base) {
+		this.base = base;
+	}
+
+
+
+
+
 	public Estabelecimento(Integer id, String nome, String telefone, String bairro, String cidade, String uf,
 			List<Registro> registros) {
 		super();

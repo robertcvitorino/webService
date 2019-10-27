@@ -11,7 +11,8 @@ public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;			
-	private String nome;			
+	private String nome;	
+	private String email;	
 	private String senha;	
 	private String telefone;		
 	private String bairro;	
@@ -30,6 +31,7 @@ public class ClienteDTO implements Serializable {
 		
 		id=clienteObjt.getId();
 		nome=clienteObjt.getNome();
+		email=clienteObjt.getEmail();
 		senha=clienteObjt.getSenha();
 		telefone=clienteObjt.getTelefone();
 		bairro=clienteObjt.getBairro();
@@ -42,10 +44,17 @@ public class ClienteDTO implements Serializable {
 	
 	//Getter e Setter da classe
 
+	
 	public Integer getId() {
 		return id;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public void setId(Integer id) {
 		this.id = id;
 	}

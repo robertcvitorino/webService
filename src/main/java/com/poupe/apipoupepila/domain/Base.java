@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -24,15 +26,40 @@ public class Base implements Serializable {
 	private String nome;
 	private Double precoOficial;
 	
+	@OneToOne
+	@JoinColumn(name="estabeleciment_Id")
+	private Estabelecimento estabelecimento;
+	
 	public Base() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	/*
 	@OneToOne
 	private Registro registros;
 	*/
+	
+	public Base(Integer id, String ean, String nome, Double precoOficial, Estabelecimento estabelecimento) {
+		super();
+		this.id = id;
+		this.ean = ean;
+		this.nome = nome;
+		this.precoOficial = precoOficial;
+		this.estabelecimento = estabelecimento;
+	}
+
+	
+
 	public Integer getId() {
 		return id;
+	}
+
+	public Estabelecimento getEstabelecimento() {
+		return estabelecimento;
+	}
+
+	public void setEstabelecimento(Estabelecimento estabelecimento) {
+		this.estabelecimento = estabelecimento;
 	}
 
 	public void setId(Integer id) {

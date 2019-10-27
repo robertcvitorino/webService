@@ -23,18 +23,18 @@ public class RegistroResource {
 	
 	@Autowired 
 	private RegistroService registroService; 
+		
+
 	
-	
-	@GetMapping(path =  "/registro/{id}")
+	@GetMapping(path ="/registro/{id}")
 	public ResponseEntity<?> buscarIdRegistro(@PathVariable Integer id) {	
-		Registro registroObj = registroService.buscarId(id);
-			
+		Registro registroObj = registroService.buscarId(id);			
 		return ResponseEntity.ok().body(registroObj);
-		}	
+	}
 	
 	
 	
-	@PostMapping(path = "/registro")
+	@PostMapping(path ="/registro")
 	public ResponseEntity<Void> CadastraProduto(@RequestBody RegistroDTO registroObj){
 		
 		Registro registro= registroService.fromDTO(registroObj);

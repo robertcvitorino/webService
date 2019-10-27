@@ -12,6 +12,7 @@ public class BaseDTO implements Serializable {
 	private String ean;
 	private String nome;
 	private Double precoOficial;
+	private Integer estabID;
 	
 	//private Integer registoID;
 	
@@ -25,12 +26,20 @@ public class BaseDTO implements Serializable {
 		ean =baseObj.getEan();
 		nome=baseObj.getNome();
 		precoOficial=baseObj.getPrecoOficial();
-				
+	
 	}
 	
 	
 	
 	
+
+	public Integer getEstabID() {
+		return estabID;
+	}
+
+	public void setEstabID(Integer estabID) {
+		this.estabID = estabID;
+	}
 
 	public Integer getId() {
 		return id;

@@ -37,6 +37,9 @@ public class Cliente implements Serializable {
 	@Column(length=50,name="CLIENTE_NOME")
 	private String nome;	
 	
+	@Column(length=100,name="CLIENTE_EMAIL",unique = true)
+	private String email;
+	
 	@Column(length=12,name="CLIENTE_SENHA")
 	private String senha;
 	
@@ -90,11 +93,12 @@ public class Cliente implements Serializable {
 
 	
 
-	public Cliente(Integer id, String nome, String senha, String telefone, String bairro, String cidade, String uf,
+	public Cliente(Integer id, String nome,String email, String senha, String telefone, String bairro, String cidade, String uf,
 			Boolean premium, List<Lista> listas, List<Registro> registros, Estabelecimento estabelecimento) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.email=email;
 		this.senha = senha;
 		this.telefone = telefone;
 		this.bairro = bairro;
@@ -104,6 +108,22 @@ public class Cliente implements Serializable {
 		this.listas = listas;
 		this.registros = registros;
 		this.estabelecimento = estabelecimento;
+	}
+
+
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

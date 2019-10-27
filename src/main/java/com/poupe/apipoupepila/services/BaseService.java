@@ -8,13 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.poupe.apipoupepila.domain.Base;
+import com.poupe.apipoupepila.domain.Estabelecimento;
+import com.poupe.apipoupepila.dto.BaseDTO;
 import com.poupe.apipoupepila.repositories.BaseRepository;
+import com.poupe.apipoupepila.repositories.EstabelecimentoRepository;
 
 @Service
 public class BaseService {
 
 	@Autowired 
 	private BaseRepository baseRepository;
+	
+	
+	@Autowired 
+	private EstabelecimentoRepository estabelecimentoRepository;
 	
 	
 	@Transactional
@@ -40,6 +47,25 @@ public class BaseService {
 	
 	public List<Base> findAll(){
 		return baseRepository.findAll();
+	}
+	
+	public Base fromDTO(BaseDTO baseDTO) {		
+		
+		Optional<Estabelecimento> estabelecimento = estabelecimentoRepository.findById(baseDTO.getEstabID());
+		
+	
+		//Cadastro de 1 registro 
+		Base baseObj = new Base (null,
+				baseDTO.getEan(),
+				baseDTO.getNome(), 
+				baseDTO.getPrecoOficial(),
+				estabelecimento.orElse(null)
+				);
+		
+		estabelecimento.orElse(null).setBase(baseObj);
+						
+		
+		return baseObj;
 	}
 	
 	

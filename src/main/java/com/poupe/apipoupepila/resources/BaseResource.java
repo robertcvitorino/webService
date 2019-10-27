@@ -56,9 +56,22 @@ public class BaseResource {
 		URI uri =ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(baseObj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@PostMapping(path = "/baseReg")
+	public ResponseEntity<Void> CadastraProduto(@RequestBody BaseDTO baseObj){
+		
+		Base base= baseService.fromDTO(baseObj);
+		
+		base= baseService.inserirBase(base);
+		
+		URI uri =ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(base.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 		
 		
 	}
+	
 	
 
 }

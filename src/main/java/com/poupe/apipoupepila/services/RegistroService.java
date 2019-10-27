@@ -84,32 +84,7 @@ public class RegistroService {
 						base.orElse(null)
 						);	
 							
-				
-				/*
-				if(precoDigitado<=precoOfical){
-				
-				}
-				
-				*/
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				//registroObj.setPrecoVerificado(registroObj.getprecoDigitado());
-				
-				/*
-				if(registroDto.getPrecoDigitado()>(precoBase*1.30)) {
-					registroDto.setPrecoVerificado(false);
-				}if(registroDto.getPrecoDigitado()<(registroDto.getPrecoDigitado()*1.30)) {
-					registroDto.setPrecoVerificado(true);
-				}*/
-				
+							
 				produto.orElse(null).getRegistro().add(registroObj);
 				cliente.orElse(null).getRegistros().add(registroObj);
 				estabelecimento.orElse(null).getRegistros().add(registroObj);
